@@ -6,10 +6,12 @@ namespace HUJI.Gamelogic
     public class HUJIGameManagerComponent : HUJIMonoBehaviour
     {
         [SerializeField] private HUJIPlayerPrefabComponent _playerPrefab;
+        [SerializeField] private Vector3 _spawnPosition;
+
 
         // public HUJIEnemySpawnService EnemySpawnService => _enemySpawnService;
 
-        // public HUJIPlayerPrefabComponent Player { get; private set; }
+        public HUJIPlayerPrefabComponent Player { get; private set; }
 
         // private HUJIBaseService[] _services;
 
@@ -25,9 +27,8 @@ namespace HUJI.Gamelogic
             //     service.OnAwake(this);
             // }
             
-            // Vector3 spawnPos = GetGroundPosition(35f, 35f);
-            // Player = Instantiate(_playerPrefab, spawnPos, Quaternion.identity);
-            // Player.Init(this);
+            Player = Instantiate(_playerPrefab, _spawnPosition, Quaternion.identity);
+            Player.Init(this);
         }
 
         // private void Start()

@@ -2,7 +2,8 @@
     "name": "HUJI.Gamelogic",
     "rootNamespace": "",
     "references": [
-        "GUID:e72b8f97a41da9f4bbf2cb763cf48dbd"
+        "GUID:e72b8f97a41da9f4bbf2cb763cf48dbd",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

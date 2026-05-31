@@ -29,8 +29,9 @@ namespace HUJI
 
             EventManager = new();
             PoolManager = new();
-            ConfigManager = new();
+            ConfigManager = new();//++
 
+            HUJIDebug.Log($"Core Managers Initialized");
             onComplete?.Invoke();
         }
     }

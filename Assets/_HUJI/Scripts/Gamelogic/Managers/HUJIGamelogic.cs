@@ -31,7 +31,7 @@ namespace HUJI.Gamelogic
 
         private IEnumerator InitializeManagersAsync(Action onComplete)
         {
-            int numManagers = 2;
+            int numManagers = 0;
             int initializedManagers = 0;
 
             // InventoryManager = new(() => initializedManagers++);
