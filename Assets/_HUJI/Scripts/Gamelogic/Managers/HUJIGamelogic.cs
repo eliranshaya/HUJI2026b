@@ -11,7 +11,7 @@ namespace HUJI.Gamelogic
         public HUJIStaticManagerScriptableObject StaticManager;
 
         // public HUJIInventoryManager InventoryManager;
-        // public HUJIStatManager StatManager;
+        public HUJIStatManager StatManager;
 
         public HUJIGamelogic()
         {
@@ -31,11 +31,11 @@ namespace HUJI.Gamelogic
 
         private IEnumerator InitializeManagersAsync(Action onComplete)
         {
-            int numManagers = 0;
+            int numManagers = 1;
             int initializedManagers = 0;
 
             // InventoryManager = new(() => initializedManagers++);
-            // StatManager = new(() => initializedManagers++);
+            StatManager = new(() => initializedManagers++);
 
             yield return new WaitUntil(() => initializedManagers >= numManagers);
 

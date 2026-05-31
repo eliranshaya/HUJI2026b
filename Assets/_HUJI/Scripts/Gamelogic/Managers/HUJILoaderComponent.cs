@@ -35,7 +35,7 @@ namespace HUJI.Gamelogic
         {
             StopAndStartCoroutine(ref _sliderCoroutine, HUJIExtensions.ChangeValueOverTimeEase(0, Random.Range(0.25f, 0.35f), Random.Range(0.25f, 0.75f), UpdateSlider));
             var manager = new HUJICoreManager();
-            manager.LoadCoreManagers(() =>
+            manager.LoadManager(() =>
             {
                 onComplete?.Invoke();
             });

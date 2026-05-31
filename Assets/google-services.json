@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1091019395025",
+    "firebase_url": "https://huji2026b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "huji2026b",
+    "storage_bucket": "huji2026b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091019395025:android:73b5a4b78026e5fc0c9af0",
+        "android_client_info": {
+          "package_name": "com.huji.huji"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyqKFrZxakSJ1hFRbCF2Lclv8TqzHWDPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
