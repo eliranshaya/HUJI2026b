@@ -1,0 +1,16 @@
+{
+    "name": "HUJI.Gamelogic",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e72b8f97a41da9f4bbf2cb763cf48dbd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
