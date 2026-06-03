@@ -12,6 +12,10 @@ namespace HUJI.Gamelogic
 
         // public HUJIInventoryManager InventoryManager;
         public HUJIStatManager StatManager;
+        public HUJIAbilityManager AbilityManager;
+        public HUJIEnemyManager EnemyManager;
+        public HUJISpawnManager SpawnManager;
+        public HUJILevelManager LevelManager;
 
         public HUJIGamelogic()
         {
@@ -31,11 +35,15 @@ namespace HUJI.Gamelogic
 
         private IEnumerator InitializeManagersAsync(Action onComplete)
         {
-            int numManagers = 1;
+            int numManagers = 5;
             int initializedManagers = 0;
 
             // InventoryManager = new(() => initializedManagers++);
             StatManager = new(() => initializedManagers++);
+            AbilityManager = new(() => initializedManagers++);
+            EnemyManager = new(() => initializedManagers++);
+            SpawnManager = new(() => initializedManagers++);
+            LevelManager = new(() => initializedManagers++);
 
             yield return new WaitUntil(() => initializedManagers >= numManagers);
 

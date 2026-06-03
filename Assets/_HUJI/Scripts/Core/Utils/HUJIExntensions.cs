@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,6 +8,11 @@ namespace HUJI
 {
     public static class HUJIExtensions
     {
+        public static void SaveData(this IHUJISaveData saveable)
+        {
+            HUJICoreManager.Instance.SaveManager.Save(saveable);
+        }
+
         public static void StopAndStartCoroutine(this MonoBehaviour monoBehaviour, ref Coroutine coroutine, IEnumerator enumerator)
         {
             if (coroutine != null)
@@ -23,6 +29,15 @@ namespace HUJI
             {
                 monoBehaviour.StopCoroutine(coroutine);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float SqrDistance(this Vector3 a, Vector3 b)
+        {
+            float dx = a.x - b.x;
+            float dy = a.y - b.y;
+            float dz = a.z - b.z;
+            return dx * dx + dy * dy + dz * dz;
         }
 
         public static bool GetRandomBool()
@@ -58,16 +73,15 @@ namespace HUJI
 
         #region ChangeValueOverTimeEase
 
-        public enum HUJIUpdateMode { Update, EndOfFrame, UnscaledUpdate, FixedUpdate, }
+        public enum HUJIUpdateMode
+        {
+            Update,
+            EndOfFrame,
+            UnscaledUpdate,
+            FixedUpdate,
+        }
 
-        public static IEnumerator ChangeValueOverTimeEase<T>(T startValue,
-            T endValue,
-            float duration,
-            Action<T> applyValue,
-            Func<T, T, float, T> lerpFunc,
-            AnimationCurve animationCurve = null,
-            HUJIUpdateMode updateMode = HUJIUpdateMode.Update,
-            Action onComplete = null)
+        public static IEnumerator ChangeValueOverTimeEase<T>(T startValue, T endValue, float duration, Action<T> applyValue, Func<T, T, float, T> lerpFunc, AnimationCurve animationCurve = null, HUJIUpdateMode updateMode = HUJIUpdateMode.Update, Action onComplete = null)
         {
             if (animationCurve == null)
             {
@@ -117,46 +131,22 @@ namespace HUJI
 
         #region Variants:
 
-        public static IEnumerator ChangeValueOverTimeEase(float startValue,
-            float endValue,
-            float duration,
-            Action<float> applyValue,
-            AnimationCurve animationCurve = null,
-            HUJIUpdateMode updateMode = HUJIUpdateMode.Update,
-            Action onComplete = null)
+        public static IEnumerator ChangeValueOverTimeEase(float startValue, float endValue, float duration, Action<float> applyValue, AnimationCurve animationCurve = null, HUJIUpdateMode updateMode = HUJIUpdateMode.Update, Action onComplete = null)
         {
             return ChangeValueOverTimeEase(startValue, endValue, duration, applyValue, Mathf.LerpUnclamped, animationCurve, updateMode, onComplete);
         }
 
-        public static IEnumerator ChangeValueOverTimeEase(Vector2 startValue,
-            Vector2 endValue,
-            float duration,
-            Action<Vector2> applyValue,
-            AnimationCurve animationCurve = null,
-            HUJIUpdateMode updateMode = HUJIUpdateMode.Update,
-            Action onComplete = null)
+        public static IEnumerator ChangeValueOverTimeEase(Vector2 startValue, Vector2 endValue, float duration, Action<Vector2> applyValue, AnimationCurve animationCurve = null, HUJIUpdateMode updateMode = HUJIUpdateMode.Update, Action onComplete = null)
         {
             return ChangeValueOverTimeEase(startValue, endValue, duration, applyValue, Vector2.LerpUnclamped, animationCurve, updateMode, onComplete);
         }
 
-        public static IEnumerator ChangeValueOverTimeEase(Vector3 startValue,
-            Vector3 endValue,
-            float duration,
-            Action<Vector3> applyValue,
-            AnimationCurve animationCurve = null,
-            HUJIUpdateMode updateMode = HUJIUpdateMode.Update,
-            Action onComplete = null)
+        public static IEnumerator ChangeValueOverTimeEase(Vector3 startValue, Vector3 endValue, float duration, Action<Vector3> applyValue, AnimationCurve animationCurve = null, HUJIUpdateMode updateMode = HUJIUpdateMode.Update, Action onComplete = null)
         {
             return ChangeValueOverTimeEase(startValue, endValue, duration, applyValue, Vector3.LerpUnclamped, animationCurve, updateMode, onComplete);
         }
 
-        public static IEnumerator ChangeValueOverTimeEase(Color startValue,
-            Color endValue,
-            float duration,
-            Action<Color> applyValue,
-            AnimationCurve animationCurve = null,
-            HUJIUpdateMode updateMode = HUJIUpdateMode.Update,
-            Action onComplete = null)
+        public static IEnumerator ChangeValueOverTimeEase(Color startValue, Color endValue, float duration, Action<Color> applyValue, AnimationCurve animationCurve = null, HUJIUpdateMode updateMode = HUJIUpdateMode.Update, Action onComplete = null)
         {
             return ChangeValueOverTimeEase(startValue, endValue, duration, applyValue, Color.LerpUnclamped, animationCurve, updateMode, onComplete);
         }

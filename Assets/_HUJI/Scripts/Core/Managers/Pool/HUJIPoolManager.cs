@@ -63,7 +63,12 @@ namespace HUJI
             holder.SetParent(_rootPools);
             holder.localPosition = Vector3.zero;
 
-            var pool = new HUJIPool { Prefab = prefab, Holder = holder, MaxPoolPrefabs = maxPoolPrefabs };
+            var pool = new HUJIPool
+            {
+                Prefab = prefab,
+                Holder = holder,
+                MaxPoolPrefabs = maxPoolPrefabs
+            };
 
             _pools.Add(prefab.PoolName, pool);
             CreatePoolPrefabs(pool, amount);
@@ -109,32 +114,26 @@ namespace HUJI
 
         public void ReturnPoolPrefab(HUJIPoolPrefab poolPrefab, bool returnToHolderParent = false)
         {
-            if (poolPrefab == null)
-                return;
+            if (poolPrefab == null) return;
 
-            if (!_pools.TryGetValue(poolPrefab.PoolName, out var pool))
-                return;
+            if (!_pools.TryGetValue(poolPrefab.PoolName, out var pool)) return;
 
-            if (!pool.ActivePoolPrefabs.Remove(poolPrefab))
-                return;
+            if (!pool.ActivePoolPrefabs.Remove(poolPrefab)) return;
 
             pool.AvailablePoolPrefabs.Add(poolPrefab);
             poolPrefab.OnReturnedToPool();
 
-            if (returnToHolderParent && pool.Holder != null)
-                poolPrefab.transform.SetParent(pool.Holder);
+            if (returnToHolderParent && pool.Holder != null) poolPrefab.transform.SetParent(pool.Holder);
         }
 
         public void ReturnAllPoolPrefabs(HUJIPoolName poolName, bool returnToHolderParent = false)
         {
-            if (_pools.TryGetValue(poolName, out var pool))
-                ReturnAllInPool(pool, returnToHolderParent);
+            if (_pools.TryGetValue(poolName, out var pool)) ReturnAllInPool(pool, returnToHolderParent);
         }
 
         public void ReturnAllPoolPrefabs(bool returnToHolderParent = false)
         {
-            foreach (var pool in _pools.Values)
-                ReturnAllInPool(pool, returnToHolderParent);
+            foreach (var pool in _pools.Values) ReturnAllInPool(pool, returnToHolderParent);
         }
 
         // ─────────────────────────────────────────────
@@ -143,8 +142,7 @@ namespace HUJI
 
         public void DestroyPool(HUJIPoolName poolName)
         {
-            if (!_pools.TryGetValue(poolName, out var pool))
-                return;
+            if (!_pools.TryGetValue(poolName, out var pool)) return;
 
             DestroyPoolInternal(pool);
             _pools.Remove(poolName);
@@ -152,8 +150,7 @@ namespace HUJI
 
         public void DestroyAllPools()
         {
-            foreach (var pool in _pools.Values)
-                DestroyPoolInternal(pool);
+            foreach (var pool in _pools.Values) DestroyPoolInternal(pool);
 
             _pools.Clear();
         }
@@ -225,8 +222,7 @@ namespace HUJI
         {
             foreach (var poolPrefab in pool.AllPoolPrefabs)
             {
-                if (poolPrefab == null || poolPrefab.gameObject == null)
-                    continue;
+                if (poolPrefab == null || poolPrefab.gameObject == null) continue;
 
                 poolPrefab.PreDestroy();
                 Object.Destroy(poolPrefab.gameObject);
@@ -236,8 +232,7 @@ namespace HUJI
             pool.AvailablePoolPrefabs.Clear();
             pool.ActivePoolPrefabs.Clear();
 
-            if (pool.Holder != null)
-                Object.Destroy(pool.Holder.gameObject);
+            if (pool.Holder != null) Object.Destroy(pool.Holder.gameObject);
         }
 
         // ─────────────────────────────────────────────
@@ -261,6 +256,10 @@ namespace HUJI
         SoundPrefab,
         ExperiencePrefab,
         DamageTextPrefab,
-        Enemy1Prefab,
+
+        Ability1Prefab = 100,
+
+        Enemy1Prefab = 200,
+        EnemyAbility1Prefab = 201,
     }
 }

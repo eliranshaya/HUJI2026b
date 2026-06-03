@@ -6,7 +6,7 @@ namespace HUJI
 {
     public class HUJIMonoBehaviour : MonoBehaviour
     {
-        protected HUJICoreManager Manager => HUJICoreManager.Instance;
+        protected HUJICoreManager CoreManager => HUJICoreManager.Instance;
 #if UNITY_EDITOR
         public void SetDirty()
         {
@@ -22,17 +22,17 @@ namespace HUJI
 
         protected void AddListener(HUJIEventName eventName, Action<object> eventCallback)
         {
-            Manager?.EventManager.AddListener(eventName, eventCallback);
+            CoreManager?.EventManager.AddListener(eventName, eventCallback);
         }
 
         protected void RemoveListener(HUJIEventName eventName, Action<object> eventCallback)
         {
-            Manager?.EventManager.RemoveListener(eventName, eventCallback);
+            CoreManager?.EventManager.RemoveListener(eventName, eventCallback);
         }
 
         protected void InvokeEvent(HUJIEventName eventName, object obj)
         {
-            Manager?.EventManager.InvokeEvent(eventName, obj);
+            CoreManager?.EventManager.InvokeEvent(eventName, obj);
         }
 
         #endregion

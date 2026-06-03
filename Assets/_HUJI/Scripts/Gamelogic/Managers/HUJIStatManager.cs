@@ -33,11 +33,27 @@ namespace HUJI.Gamelogic
         public HUJIStatType StatType;
         public float Value;
     }
+    [Serializable]
+    public struct HUJIStatHelper
+    {
+        public HUJICalculationType CalculationType;
+        public HUJIBaseStat BaseStat;
+    }
     public enum HUJIStatType
     {
         None,
         AttackDamage,
         Health,
-        MovementSpeed
+        MovementSpeed,
+        Armor,
+        AttackSpeed,
+        AttackRange
+    }
+    public enum HUJICalculationType
+    {
+        None,
+        Base,
+        Additive,
+        Multiple,
     }
 }

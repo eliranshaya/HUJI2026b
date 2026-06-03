@@ -2,94 +2,83 @@ using UnityEngine;
 
 namespace HUJI.Gamelogic
 {
-    public class HUJIPlayerPrefabComponent : HUJIMonoBehaviour//, IHUJIDamageable
+    public class HUJIPlayerPrefabComponent : HUJIMonoBehaviour
     {
         public HUJIGameManagerComponent GameManager { get; private set; }
 
-        // [HUJIBoxGroup("BodyMapping")] [SerializeField] private HUJIBodyMapping _bodyMapping;
-        // public HUJIBodyMapping BodyMapping => _bodyMapping;
-        //
-        // [HUJIBoxGroup("Input")] [SerializeField] private HUJIPlayerInput _playerInput;
-        // public HUJIPlayerInput PlayerInput => _playerInput;
-        //
-        // [HUJIBoxGroup("Camera")] [SerializeField] private HUJIPlayerCamera _playerCamera;
-        // public HUJIPlayerCamera PlayerCamera => _playerCamera;
-        //
-        // [HUJIBoxGroup("Movement")] [SerializeField] private HUJIPlayerMovement _playerMovement;
-        // public HUJIPlayerMovement PlayerMovement => _playerMovement;
-        //
-        // [HUJIBoxGroup("Animation")] [SerializeField] private HUJIPlayerAnimation _playerAnimation;
-        // public HUJIPlayerAnimation PlayerAnimation => _playerAnimation;
-        //
-        // [HUJIBoxGroup("Attack")] [SerializeField] private HUJIPlayerAttack _playerAttack;
-        // public HUJIPlayerAttack PlayerAttack => _playerAttack;
-        //
-        // [HUJIBoxGroup("Stat")] [SerializeField] private HUJIPlayerStat _playerStat;
-        // public HUJIPlayerStat PlayerStat => _playerStat;
-        //
-        // [HUJIBoxGroup("Health")] [SerializeField] private HUJIPlayerHealth _playerHealth;
-        // public HUJIPlayerHealth PlayerHealth => _playerHealth;
-        //
-        // [HUJIBoxGroup("Sound")] [SerializeField] private HUJIPlayerSound _playerSound;
-        // public HUJIPlayerSound PlayerSound => _playerSound;
-        //
-        // [HUJIBoxGroup("Inventory")] [SerializeField] private HUJIPlayerInventory _playerInventory;
-        // public HUJIPlayerInventory PlayerInventory => _playerInventory;
-        //
-        // [HUJIBoxGroup("Interact")] [SerializeField] private HUJIPlayerInteract _playerInteract;
-        // public HUJIPlayerInteract PlayerInteract => _playerInteract;
-        //
-        // [HUJIBoxGroup("UI")] [SerializeField] private HUJIPlayerUI _playerUI;
-        // public HUJIPlayerUI PlayerUI => _playerUI;
-        //
-        // private HUJIBasePlayer[] _services;
+        [HUJIBoxGroup("BodyMapping")] [SerializeField] private HUJIBodyMapping _bodyMapping;
+        public HUJIBodyMapping BodyMapping => _bodyMapping;
 
-// #if UNITY_EDITOR
-//         [HUJIButton("SetBodyMapping")]
-//         private void SetBodyMapping()
-//         {
-//             _bodyMapping.SetBodyMapping(transform);
-//             SetDirty();
-//         }
-//
-//         [HUJIButton("SetUI")]
-//         private void SetUI()
-//         {
-//             _playerUI.SetWindows(transform);
-//             SetDirty();
-//         }
-// #endif
-//
-         public void Init(HUJIGameManagerComponent gameManager)
-         {
-             GameManager = gameManager;
+        [HUJIBoxGroup("Movement")] [SerializeField] private HUJIPlayerMovement _playerMovement;
+        public HUJIPlayerMovement PlayerMovement => _playerMovement;
 
-             // _services = new HUJIBasePlayer[]
-             // {
-             //     _playerInput, _playerStat, _playerMovement, _playerCamera, _playerAnimation, _playerAttack, _playerHealth, _playerSound, _playerInventory, _playerInteract, _playerUI
-             // };
-             //
-             // foreach (var service in _services)
-             // {
-             //     service.OnInitialize(this);
-             // }
-         }
-//
-//         public void OnDeath()
-//         {
-//             foreach (var service in _services)
-//             {
-//                 service.OnDeath();
-//             }
-//         }
-//
-//         private void OnDestroy()
-//         {
-//             foreach (var service in _services)
-//             {
-//                 service.OnDestroy();
-//             }
-//         }
+        [HUJIBoxGroup("Animation")] [SerializeField] private HUJIPlayerAnimation _playerAnimation;
+        public HUJIPlayerAnimation PlayerAnimation => _playerAnimation;
+
+        [HUJIBoxGroup("Attack")] [SerializeField] private HUJIPlayerAttack _playerAttack;
+        public HUJIPlayerAttack PlayerAttack => _playerAttack;
+
+        [HUJIBoxGroup("Stat")] [SerializeField] private HUJIPlayerStat _playerStat;
+        public HUJIPlayerStat PlayerStat => _playerStat;
+
+        [HUJIBoxGroup("Health")] [SerializeField] private HUJIPlayerHealth _playerHealth;
+        public HUJIPlayerHealth PlayerHealth => _playerHealth;
+
+        private HUJIBasePlayer[] _services;
+
+        #region Editor:
+
+#if UNITY_EDITOR
+        [HUJIButton("SetBodyMapping")]
+        private void SetBodyMapping()
+        {
+            _bodyMapping.SetBodyMapping(transform);
+            SetDirty();
+        }
+
+        [HUJIButton("OnUpdatePlayerHealth")]
+        private void OnUpdatePlayerHealth()
+        {
+            HUJICoreManager.Instance.EventManager.InvokeEvent(HUJIEventName.OnUpdatePlayerHealth, (Random.Range(10,50), 50));
+        }
+#endif
+
+        #endregion
+
+        public void Init(HUJIGameManagerComponent gameManager)
+        {
+            GameManager = gameManager;
+
+            _services = new HUJIBasePlayer[]
+            {
+                _playerStat,
+                _playerAnimation,
+                _playerAttack,
+                _playerHealth,
+                _playerMovement,
+            };
+
+            foreach (var service in _services)
+            {
+                service.OnInitialize(this);
+            }
+        }
+
+        public void OnDeath()
+        {
+            foreach (var service in _services)
+            {
+                // service.OnDeath();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var service in _services)
+            {
+                // service.OnDestroy();
+            }
+        }
 //
 //         #region AnimationEvents:
 //

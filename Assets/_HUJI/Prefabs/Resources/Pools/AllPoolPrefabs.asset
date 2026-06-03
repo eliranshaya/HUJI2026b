@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd76da006b8fb447847aab8d7d49861, type: 3}
   m_Name: AllPoolPrefabs
   m_EditorClassIdentifier: HUJI::HUJI.HUJIPoolNamesScriptableObject
-  _allPoolPrefabs: []
+  _allPoolPrefabs:
+  - {fileID: 8742222559119919340, guid: de119dd89e4866e4ea2b19fd1f52e462, type: 3}

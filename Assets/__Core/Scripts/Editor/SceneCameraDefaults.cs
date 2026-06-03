@@ -14,7 +14,7 @@ namespace Core
 
                 sv.cameraSettings.fieldOfView = 60;
                 sv.cameraSettings.nearClip = 0.1f;
-                sv.cameraSettings.farClip = 10000f;
+                sv.cameraSettings.farClip = 1000f;
 
                 sv.cameraSettings.speed = 1f;
                 sv.cameraSettings.speedMin = 0.1f;

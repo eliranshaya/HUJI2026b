@@ -88,5 +88,6 @@ namespace HUJI
         OnOpenWindow,
         OnClickAlphaKey,
         OnUpdateActionSlot,
+        OnFinishWave
     }
 }
