@@ -74,19 +74,25 @@ namespace HUJI.Gamelogic
 
                 var enemyPosition = enemy.transform.position;
 
-                float distSq = playerTransform.position.SqrDistance(enemyPosition);
-                if (distSq <= _player.PlayerAttack.CurrentAbility.AttackRange)
+                if (_player.PlayerAttack.CurrentAbility != null)
                 {
-                    _agent.isStopped = true;
-                    _player.PlayerAnimation.UpdateMovement(0);
+                    float distSq = playerTransform.position.SqrDistance(enemyPosition);
+                    if (distSq <= _player.PlayerAttack.CurrentAbility.AttackRange)
+                    {
+                        _agent.isStopped = true;
+                        _agent.velocity = Vector3.zero;
+                        _agent.ResetPath();
+                        
+                        _player.PlayerAnimation.UpdateMovement(0);
 
-                    yield return _player.PlayerAttack.DoAttack(enemyPosition);
+                        yield return _player.PlayerAttack.DoAttack(enemyPosition);
 
-                    _player.PlayerAttack.SetCurrentAbility();
+                        _player.PlayerAttack.SetCurrentAbility();
 
-                    _agent.isStopped = false;
+                        _agent.isStopped = false;
 
-                    continue;
+                        continue;
+                    }
                 }
 
                 _agent.SetDestination(enemyPosition);

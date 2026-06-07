@@ -81,6 +81,7 @@ namespace HUJI.Gamelogic
         public HUJIBodyType BodyType;
         public HUJIPoolName VisualPoolName;
         public string AnimationTriggerString;
+        public float StoppingDistance;
 
         public HUJIBaseStat[] BaseStats;
 

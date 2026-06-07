@@ -13,6 +13,7 @@ namespace HUJI.Gamelogic
         private int _uniqueId;
         public int GetUniqueId() => _uniqueId++;
         public readonly Dictionary<string, HUJIEnemyPrefabComponent> ActiveEnemies = new();
+        public HUJIEnemyPrefabComponent GetEnemy(string name) => ActiveEnemies.GetValueOrDefault(name);
 
         private List<Coroutine> _spawnCoroutines = new();
 

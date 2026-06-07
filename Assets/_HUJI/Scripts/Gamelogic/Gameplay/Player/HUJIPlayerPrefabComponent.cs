@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace HUJI.Gamelogic
 {
@@ -39,7 +41,7 @@ namespace HUJI.Gamelogic
         [HUJIButton("OnUpdatePlayerHealth")]
         private void OnUpdatePlayerHealth()
         {
-            HUJICoreManager.Instance.EventManager.InvokeEvent(HUJIEventName.OnUpdatePlayerHealth, (Random.Range(10,50), 50));
+            HUJICoreManager.Instance.EventManager.InvokeEvent(HUJIEventName.OnUpdatePlayerHealth, (Random.Range(10, 50), 50));
         }
 #endif
 
@@ -68,7 +70,7 @@ namespace HUJI.Gamelogic
         {
             foreach (var service in _services)
             {
-                // service.OnDeath();
+                service.OnDeath();
             }
         }
 
@@ -76,30 +78,17 @@ namespace HUJI.Gamelogic
         {
             foreach (var service in _services)
             {
-                // service.OnDestroy();
+                service.OnDestroy();
             }
         }
-//
-//         #region AnimationEvents:
-//
-//         private void StartAttackTrigger(HUJIAbilityType abilityType) => _playerAttack.ActiveAbility(abilityType);
-//         private void EndAttackTrigger(HUJIAbilityType abilityType) => _playerAttack.EndAbilityAnimation(abilityType);
-//         public void InstantiateAbilityCollider(HUJIAbilityType abilityType) => _playerAttack.InstantiateAbilityCollider(abilityType);
-//         private void PlayAttackSound(HUJISoundConfig soundConfig) => _playerAttack.PlayAttackSound(soundConfig);
-//         private void StopAttackSound() => _playerAttack.StopAttackSound();
-//
-//         private void SetCanRotate(HUJIBooleanType booleanType) => _playerCamera.SetCanRotate(booleanType);
-//
-//         private void ExecutePush(HUJIPushConfig pushConfig) => _playerMovement.PushMovementCameraDirection(pushConfig);
-//         private void EnableDisableMovement(HUJIBooleanType booleanType) => _playerMovement.EnableDisableMovement(booleanType == HUJIBooleanType.True);
-//
-//         private void PlayFootstep(AnimationEvent evt) => _playerSound.PlayFootstep(evt);
-//         private void PlaySound(HUJISoundConfig soundConfig) => _playerSound.PlaySound(soundConfig);
-//
-//         #endregion
-//
-//         public bool CanBeDamagedBy(HUJIWeaponType weaponType) => true;
-//
-//         public void ReduceHealth(float damage, Collider other) => _playerHealth.ReduceHealth(damage);
+
+        #region AnimationEvents:
+
+        private void OnFinishAttack() => _playerAttack.OnFinishAttack();
+        public void InstantiateAbility(int abilityUniqueId) => _playerAttack.InstantiateAbility(abilityUniqueId);
+
+        // private void ExecutePush(HUJIPushConfig pushConfig) => _playerMovement.PushMovementCameraDirection(pushConfig);
+
+        #endregion
     }
 }

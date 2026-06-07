@@ -92,7 +92,8 @@ namespace HUJI.Gamelogic
         {
             _currentAbility = GetNewCurrentAbility();
             _currentAbility.AttackRange = _currentAbility.GetAbilityStat(HUJIStatType.AttackRange);
-            _player.PlayerMovement.Agent.stoppingDistance = _currentAbility.AttackRange - 1;
+            HUJIDebug.Log($"_currentAbility.AbilityConfig.StoppingDistance = {_currentAbility.AbilityConfig.StoppingDistance}");
+            _player.PlayerMovement.Agent.stoppingDistance = _currentAbility.AbilityConfig.StoppingDistance; //???;
 
             HUJIAbilityRuntime GetNewCurrentAbility()
             {
@@ -143,6 +144,25 @@ namespace HUJI.Gamelogic
         public void OnFinishAttack()
         {
             _currentAbility = null;
+        }
+
+        public void InstantiateAbility(int abilityUniqueId)
+        {
+            if (CurrentAbility == null || _currentAbility.AbilityConfig.AbilityUniqueId != abilityUniqueId)
+            {
+                return;
+            }
+
+            var abilityConfig = _currentAbility.AbilityConfig;
+            var bodyHolder = _player.BodyMapping.GetBodyTransform(abilityConfig.BodyType);
+
+            var abilityVisualInstance = (HUJIBaseAbilityPrefab)CoreManager.PoolManager.GetPoolPrefab(_currentAbility.AbilityConfig.VisualPoolName);
+            if (abilityVisualInstance)
+            {
+                abilityVisualInstance.transform.SetParent(bodyHolder.transform);
+                abilityVisualInstance.transform.localScale = Vector3.one;
+                abilityVisualInstance.Initialize(_player, _currentAbility);
+            }
         }
     }
 }
